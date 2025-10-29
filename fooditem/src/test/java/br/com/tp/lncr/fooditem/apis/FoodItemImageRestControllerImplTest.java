@@ -22,7 +22,6 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -68,14 +67,14 @@ class FoodItemImageRestControllerImplTest {
 
     @Test
     void deveRetornarFoodItemImagePorId() {
-        when(foodItemImageController.getImageById(eq(1), eq(foodItemDataProxy), eq("/images"))).thenReturn(foodItemImageDTO);
+        when(foodItemImageController.getImageById(1, foodItemDataProxy, "/images")).thenReturn(foodItemImageDTO);
 
         ResponseEntity<ResponseModel<FoodItemImageDTO>> response = foodItemImageRestController.getFoodItemImageById(1);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
         assertEquals(foodItemImageDTO, response.getBody().getContent());
-        verify(foodItemImageController).getImageById(eq(1), eq(foodItemDataProxy), eq("/images"));
+        verify(foodItemImageController).getImageById(1, foodItemDataProxy, "/images");
     }
 
     @Test
@@ -111,7 +110,7 @@ class FoodItemImageRestControllerImplTest {
         imageWithData.setId(1);
         imageWithData.setFileName("burger.jpg");
         imageWithData.setData(BASE64_PNG);
-        when(foodItemImageController.getImageById(eq(1), eq(foodItemDataProxy), eq("/images"))).thenReturn(imageWithData);
+        when(foodItemImageController.getImageById(1, foodItemDataProxy, "/images")).thenReturn(imageWithData);
 
         ResponseEntity<ResponseModel<FoodItemImageDTO>> response = foodItemImageRestController.getFoodItemImageById(1);
 

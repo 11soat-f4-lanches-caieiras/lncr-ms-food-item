@@ -1,6 +1,5 @@
 package br.com.tp.lncr.fooditem.apis;
 
-import br.com.tp.lncr.fooditem.apis.FoodItemRestControllerImpl;
 import br.com.tp.lncr.commons.model.ResponseListModel;
 import br.com.tp.lncr.commons.model.ResponseModel;
 import br.com.tp.lncr.fooditem.configs.FoodItemConfig;

@@ -112,7 +112,7 @@ class JpaFoodItemMapperTest {
 
         assertNotNull(result);
         assertEquals(1, result.size());
-        assertEquals(jpaFoodItemImageEntity.getId(), result.get(0).getId());
+        assertEquals(jpaFoodItemImageEntity.getId(), result.getFirst().getId());
     }
 
     @Test
@@ -155,17 +155,19 @@ class JpaFoodItemMapperTest {
     }
 
     @Test
-    void mapNullImageListReturnsNull() {
+    void mapNullImageListReturnsEmptyList() {
         List<FoodItemImageDTO> result = mapper.jpaFoodItemImageToDtoList(null);
 
-        assertNull(result);
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
     }
 
     @Test
-    void mapNullImageDtoListReturnsNull() {
+    void mapNullImageDtoListReturnsEmptyList() {
         List<JpaFoodItemImageEntity> result = mapper.foodItemImageDtoToJpaList(null);
 
-        assertNull(result);
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
     }
 
     @Test

@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Base64;
 import java.util.List;
 
@@ -76,11 +78,15 @@ public class FoodItemImageStorageImpl {
         }
     }
 
-    public void deleteImageFile(String fileName){
-        File file = new File(foodItemConfig.getImage().getDirectory() + fileName);
-        if (file.exists()) {
-            log.info("Deletando arquivo: {}", file.getName());
-            file.delete();
+    public void deleteImageFile(String fileName) {
+        Path filePath = Path.of(foodItemConfig.getImage().getDirectory(), fileName);
+        if (Files.exists(filePath)) {
+            log.info("Deletando arquivo: {}", filePath.getFileName());
+            try {
+                Files.delete(filePath);
+            } catch (IOException e) {
+                log.error("Erro ao deletar o arquivo: " + fileName, e);
+            }
         }
     }
 
