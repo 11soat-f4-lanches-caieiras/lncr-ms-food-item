@@ -1,4 +1,4 @@
-package br.com.tp.lncr.fooditem.bdd.datasources.storage;
+package br.com.tp.lncr.fooditem.bdd;
 
 import br.com.tp.lncr.core.dtos.fooditem.FoodItemImageDTO;
 import br.com.tp.lncr.core.exceptions.FoodItemException;
