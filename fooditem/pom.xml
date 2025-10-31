@@ -43,6 +43,7 @@
         <sonar.token>${SONAR_TOKEN}</sonar.token>
         <sonar.scm.disabled>true</sonar.scm.disabled>
         <sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+        <sonar.coverage.exclusions>br.com.tp.lncr.App*.java</sonar.coverage.exclusions>
 
     </properties>
     <dependencyManagement>
