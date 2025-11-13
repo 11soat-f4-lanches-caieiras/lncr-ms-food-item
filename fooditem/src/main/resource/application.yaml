@@ -1,6 +1,8 @@
 spring:
   application:
-    name: lncr-ms-food-item
+    name: foodItem
+  server:
+    port: "${SERVER_PORT:8080}"
   jackson:
     default-property-inclusion: non_null
     serialization:
@@ -15,7 +17,6 @@ spring:
       ddl-auto: update
       show-sql: true
       format_sql: true
-
 management:
   endpoints:
     web:
@@ -24,16 +25,15 @@ management:
   endpoint:
     health:
       show-details: always
-server:
-  port: 8080
+
 lncr:
-  internal-url: "${LNCR_INTERNAL_URL:http://localhost:8080}"
-  external-url: "${LNCR_EXTERNAL_URL:http://localhost:8080}"
+  internalUrl: "${LNCR_ALB_URL:http://localhost:8080}"
+  externalUrl: "${LNCR_EXTERNAL_URL}"
   food-item:
-    location-prefix: "${lncr.external-url}/foodItems"
+    location-prefix: "${lncr.externalUrl}/foodItems"
     max-images: 5
     image:
-      location-prefix: "${lncr.external-url}/foodItems/image"
+      location-prefix: "${lncr.externalUrl}/foodItems/image"
       directory: "/app/images/"
       maxSize: 524288 # 512 KB
       allowed-extensions:
