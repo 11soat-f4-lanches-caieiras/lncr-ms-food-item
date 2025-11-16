@@ -28,10 +28,10 @@ env:
   DOCKERFILE_TEMPLATE_URL: ${{ vars.DOCKERFILE_TEMPLATE_URL }}
   ECR_REPOSITORY: ${{ vars.ECR_REPOSITORY }}
   EKS_CLUSTER: ${{ vars.EKS_CLUSTER }}
+  INGRESS_HOST: ${{ vars.INGRESS_HOST }}
   JACOCO_REPORT_PATH: "${{ vars.MS_DOMAIN }}/target/site/jacoco/jacoco.xml"
   LNCR_INTERNAL_URL: ${{ vars.LNCR_INTERNAL_URL }}
   LNCR_EXTERNAL_URL: ${{ vars.LNCR_EXTERNAL_URL }}
-  INGRESS_HOST: ${{ vars.INGRESS_HOST }}
   MAVEN_POM_PATH: "${{ vars.MS_DOMAIN }}/pom.xml"
   MAVEN_SETTINGS_PATH: "${{ vars.MS_DOMAIN }}/maven_settings.xml"
   MAVEN_TEMPLATE_URL: ${{ vars.MAVEN_TEMPLATE_URL }}
@@ -239,7 +239,7 @@ jobs:
     name: Deploy com Helm
     needs: [approve-helm-only, approve-after-build]
     if: ${{ always() && (needs.approve-after-build.result == 'success' || needs.approve-helm-only.result == 'success') }}
-    runs-on: codebuild-github-lncr-app-${{ github.run_id }}-${{ github.run_attempt }}
+    runs-on: ${{ env.AWS_CODE_BUILD }}-${{ github.run_id }}-${{ github.run_attempt }}
     environment:
       name: ${{ github.ref_name == 'master' && 'prd' || 'dev' }}
     steps:
