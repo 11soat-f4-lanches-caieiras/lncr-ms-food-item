@@ -56,6 +56,10 @@ env:
   GITHUB_ACTOR: ${{ github.actor}}
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
 
 jobs:
   build-and-upload:
