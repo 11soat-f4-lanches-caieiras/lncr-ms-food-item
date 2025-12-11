@@ -70,7 +70,7 @@ hpa:
 
 #SecretProviderClass
 secretProviderClass:
-  name: "lncr-ms-food-item-prd-secrets"
+  name: "lncr-prd-lncr-ms-food-item"
   namespace: production
   provider: aws
   parameters:
@@ -83,8 +83,8 @@ secretProviderClass:
     - POSTGRES_USER
     - POSTGRES_PASSWORD
   secretObjects:
-    - secretName: food-item-secret
+    - secretName: lncr-prd-lncr-ms-food-item
       type: Opaque
   twoSecrets:
     enabled: false
-deploySecretName: food-item-secret
+deploySecretName: lncr-prd-lncr-ms-food-item
