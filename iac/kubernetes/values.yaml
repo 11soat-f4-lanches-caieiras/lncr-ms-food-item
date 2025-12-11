@@ -47,7 +47,7 @@ ingress:
 ##Storage
 storage:
   fsx:
-    server: "10.1.46.136"
+    server: "10.1.38.52"
     path: "/fsx"
 
 #Deployment
