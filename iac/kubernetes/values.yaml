@@ -71,7 +71,7 @@ hpa:
 #SecretProviderClass
 secretProviderClass:
   name: "lncr-ms-food-item-prd-secrets"
-  namespace: prodution
+  namespace: production
   provider: aws
   parameters:
     region: "us-east-1"
