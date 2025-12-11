@@ -1,4 +1,11 @@
-name: Construir e Upload da Aplicação lncr-ms-food-item
+name: Construir e Upload da Aplicação lncr-ms-customer
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+  id-token: write
+
 on:
   repository_dispatch:
     types: [infra-base-completed]
@@ -22,7 +29,6 @@ on:
 env:
   #variáveis pipeine
   AWS_DEFAULT_REGION: ${{ vars.AWS_DEFAULT_REGION }}
-  AWS_CODE_BUILD: ${{ vars.AWS_CODE_BUILD }}
   AWS_ECR_REGISTRY: ${{ vars.AWS_ECR_REGISTRY }}
   BASE_IMAGE: ${{ vars.BASE_IMAGE }}
   DOCKERFILE_PATH: "${{ vars.MS_DOMAIN }}/Dockerfile"
@@ -35,10 +41,9 @@ env:
   MAVEN_TEMPLATE_URL: ${{ vars.MAVEN_TEMPLATE_URL }}
   MS_DOMAIN: ${{ vars.MS_DOMAIN }}
 
-  #variáveis aplicação
-  LNCR_INTERNAL_URL: ${{ vars.LNCR_INTERNAL_URL }}
+  #variáveis da aplicação
   LNCR_EXTERNAL_URL: ${{ vars.LNCR_EXTERNAL_URL }}
-
+  LNCR_INTERNAL_URL: ${{ vars.LNCR_INTERNAL_URL }}
 
   #variáveis kubernetes
   ALB_NAME: ${{ vars.ALB_NAME }}
@@ -56,16 +61,10 @@ env:
   GITHUB_ACTOR: ${{ github.actor}}
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-permissions:
-  contents: read
-  issues: write
-  pull-requests: write
-
 jobs:
   build-and-upload:
     name: Validação Construção e Upload da Imagem Docker
     runs-on: ${{ vars.AWS_CODE_BUILD }}-${{ github.run_id }}-${{ github.run_attempt }}
-    #Disparado via repository_dispatch do repositório lncr-iac
     if: ${{ (github.event_name == 'workflow_dispatch' || github.event_name == 'repository_dispatch') && !inputs.only-helm-deploy }}
     environment:
       name: ${{ github.ref_name == 'master' && 'prd' || 'dev' }}
@@ -172,19 +171,17 @@ jobs:
         with:
           username: ${{ env.DOCKER_USERNAME }}
           password: ${{ env.DOCKER_PASSWORD }}
-
+#
       - name: Definir Caminhos e Variáveis de Ambiente
-        env:
-          DOMAIN: ${{ env.DOMAIN}}
+        id: set-vars
         run: |
           echo "Compondo variáveis de ambiente..."
           COMMIT_HASH=$(git rev-parse --short HEAD)
-          IMAGE_NAME=lncr-$DOMAIN-$COMMIT_HASH
+          IMAGE_NAME=lncr-ms-customer-$COMMIT_HASH
 
           echo "Exportando variáveis de ambiente..."
           echo "IMAGE_NAME=$IMAGE_NAME" >> $GITHUB_ENV
           echo "COMMIT_HASH=$COMMIT_HASH" >> $GITHUB_ENV
-         
 
           echo "Exportando variáveis de output..."
           echo "IMAGE_NAME=$IMAGE_NAME" >> $GITHUB_OUTPUT
@@ -291,8 +288,8 @@ jobs:
           if [ "${{ inputs.only-helm-deploy }}" = "true" ]; then
               IMAGE_TAG="latest"
           fi
-          
-          AWS_SECRET_MANAGER_ARN="$(aws secretsmanager list-secrets --region ${{ vars.AWS_DEFAULT_REGION }} --query "SecretList[?contains(Name, '${{ env.MS_NAME }}-prd-secret')].ARN | [0]" --output text)"       
+          AWS_SECRET_MANAGER_ARN="arn:aws:secretsmanager:us-east-1:080145351546:secret:lncr-prd-lncr-ms-food-item-90HoI3"
+          # AWS_SECRET_MANAGER_ARN="$(aws secretsmanager list-secrets --region ${{ vars.AWS_DEFAULT_REGION }} --query "SecretList[?contains(Name, '${{ env.MS_NAME }}-prd-secret')].ARN | [0]" --output text)"
           
           cd iac/kubernetes
 
@@ -307,7 +304,7 @@ jobs:
           helm upgrade --install ${{ env.MS_NAME }} . \
             --namespace production \
             --create-namespace \
-            --set app.image.repository=${{ env.AWS_ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }} \
+            --set app.image.repository=${ECR_REGISTRY}/${{ env.ECR_REPOSITORY }} \
             --set app.image.tag=${IMAGE_TAG} \
             --set app.internalUrl="${{ env.LNCR_INTERNAL_URL }}" \
             --set app.externalUrl="${{ env.LNCR_EXTERNAL_URL }}" \
