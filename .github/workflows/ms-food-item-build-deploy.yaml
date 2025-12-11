@@ -1,4 +1,4 @@
-name: Construir e Upload da Aplicação lncr-ms-customer
+name: Construir e Upload da Aplicação lncr-ms-food-item
 
 permissions:
   contents: read
