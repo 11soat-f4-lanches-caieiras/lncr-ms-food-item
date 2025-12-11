@@ -292,8 +292,8 @@ jobs:
           if [ "${{ inputs.only-helm-deploy }}" = "true" ]; then
               IMAGE_TAG="latest"
           fi
-          AWS_SECRET_MANAGER_ARN="arn:aws:secretsmanager:us-east-1:080145351546:secret:lncr-prd-lncr-ms-food-item-90HoI3"
-          # AWS_SECRET_MANAGER_ARN="$(aws secretsmanager list-secrets --region ${{ vars.AWS_DEFAULT_REGION }} --query "SecretList[?contains(Name, '${{ env.MS_NAME }}-prd-secret')].ARN | [0]" --output text)"
+          
+          AWS_SECRET_MANAGER_ARN="$(aws secretsmanager list-secrets --region ${{ vars.AWS_DEFAULT_REGION }} --query "SecretList[?contains(Name, '${{ env.MS_NAME }}-prd-secret')].ARN | [0]" --output text)"
           
           cd iac/kubernetes
 
