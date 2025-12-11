@@ -91,7 +91,9 @@ jobs:
         run: |
               BIN=$PWD
               echo "Obtendo template do maven_settings.xml"
-              curl -s -H "Authorization: token ${LNCR_MAVEN_PAT}" -o $BIN/$MAVEN_SETTINGS_PATH "${MAVEN_TEMPLATE_URL}" 
+              curl -s -H "Authorization: token ${LNCR_MAVEN_PAT}" -o $BIN/$MAVEN_SETTINGS_PATH "${MAVEN_TEMPLATE_URL}"
+          
+              cat $BIN/$MAVEN_SETTINGS_PATH
           
               echo "Obtendo template do Docker File"
               curl -s -H "Authorization: token ${LNCR_MAVEN_PAT}" -o $BIN/$DOCKERFILE_PATH "${DOCKERFILE_TEMPLATE_URL}"
@@ -103,6 +105,8 @@ jobs:
 
               echo "Configurando Dockerfile para o dominio $MS_DOMAIN e imagem base $BASE_IMAGE"
               sed -i "s/##MS_DOMAIN##/$MS_DOMAIN/g; s/##BASE_IMAGE##/$BASE_IMAGE/g;" $BIN/$DOCKERFILE_PATH
+          
+              cat $BIN/$DOCKERFILE_PATH
 
       - name: Cache SonarQube packages
         uses: actions/cache@v4
