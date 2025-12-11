@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component
 @Table(name = "food_item_image",
         schema = "public",
         indexes = {
@@ -33,7 +32,6 @@ public class JpaFoodItemImageEntity {
     public JpaFoodItemImageEntity() {
     }
 
-    @Autowired
     public JpaFoodItemImageEntity(Integer id, Integer foodItemId, String data, String location, String fileName, String fileExtension, String imageError) {
         this.id = id;
         this.foodItemId = foodItemId;
