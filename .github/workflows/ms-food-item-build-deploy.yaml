@@ -46,11 +46,11 @@ env:
   LNCR_INTERNAL_URL: ${{ vars.LNCR_INTERNAL_URL }}
 
   #variáveis kubernetes
+
   INGRESS_HOST: ${{ vars.INGRESS_HOST }}
   MS_NAME: ${{ vars.MS_NAME }}
 
-
-  # secrets pipeline
+  #secrets pipeline
   LNCR_MAVEN_ACTOR: ${{ secrets.LNCR_MAVEN_ACTOR }}
   LNCR_MAVEN_PAT: ${{ secrets.LNCR_MAVEN_PAT }}
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
@@ -354,4 +354,3 @@ jobs:
             --force
           
           echo "Deploy concluído com sucesso!"
-                                                                                                            
