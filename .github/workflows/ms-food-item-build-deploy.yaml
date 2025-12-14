@@ -46,7 +46,6 @@ env:
   LNCR_INTERNAL_URL: ${{ vars.LNCR_INTERNAL_URL }}
 
   #variáveis kubernetes
-
   INGRESS_HOST: ${{ vars.INGRESS_HOST }}
   MS_NAME: ${{ vars.MS_NAME }}
 
