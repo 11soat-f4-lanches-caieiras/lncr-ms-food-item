@@ -17,9 +17,6 @@ spring:
       ddl-auto: update
       show-sql: true
       format_sql: true
-      properties:
-        hibernate:
-          dialect: org.hibernate.dialect.PostgreSQLDialect
 management:
   endpoints:
     web:
