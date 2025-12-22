@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: foodItem
+  server:
+    port: "${SERVER_PORT:8080}"
+  jackson:
+    default-property-inclusion: non_null
+    serialization:
+      write-dates-as-timestamps: false
+  datasource:
+    url: "${POSTGRES_URL}"
+    username: "${POSTGRES_USER}"
+    password: "${POSTGRES_PASSWORD}"
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+      show-sql: true
+      format_sql: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+lncr:
+  internalUrl: "${LNCR_INTERNAL_URL:http://localhost:8080}"
+  externalUrl: "${LNCR_EXTERNAL_URL}"
+  food-item:
+    location-prefix: "${lncr.externalUrl}/foodItems"
+    max-images: 5
+    image:
+      location-prefix: "${lncr.externalUrl}/foodItems/image"
+      directory: "/app/images/"
+      maxSize: 524288 # 512 KB
+      allowed-extensions:
+        ".jpg": "FFD8"
+        ".png": "89504E47"
+
+
