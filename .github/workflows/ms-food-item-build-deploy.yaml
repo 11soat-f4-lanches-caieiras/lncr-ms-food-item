@@ -18,6 +18,17 @@ on:
         default: false
         type: boolean
 
+  push:
+    branches:
+      - develop
+    paths:
+      - 'fooditem/src/**'
+
+  pull_request:
+    types: [closed]
+    branches:
+      - master
+
   workflow_call:
     inputs:
       branch:

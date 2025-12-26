@@ -45,7 +45,7 @@ Microserviço responsável pelo gerenciamento de **Itens de Alimentação** no s
 
 ## Sonar Quality Gate
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=11soat-f4-lanches-caieiras_lncr-ms-food-item&metric=alert_status)](https://sonarcloud.io/project/overview?id=11soat-f4-lanches-caieiras_lncr-ms-food-item)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=11soat-f4-lanches-caieiras_lncr-ms-food-item&metric=alert_status&token=3d0fd93336381033d2446d033f98252b691f9b93)](https://sonarcloud.io/summary/new_code?id=11soat-f4-lanches-caieiras_lncr-ms-food-item)
 
 Acesse o dashboard completo: [SonarCloud - lncr-ms-food-item](https://sonarcloud.io/project/overview?id=11soat-f4-lanches-caieiras_lncr-ms-food-item)
 
